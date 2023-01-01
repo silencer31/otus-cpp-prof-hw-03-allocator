@@ -276,7 +276,7 @@ Chunk<T>* CustomAllocator<T, N>::allocate_new_chunk(const size_t& items_number)
     
     if ( nullptr == chunk_ptr->allocate_space(items_number)) {
         //std::free( reinterpret_cast<void*>(chunk_ptr) );
-        delete reinterpret_cast<void*>(chunk_ptr);
+        delete chunk_ptr;
         return nullptr;
     }
 
