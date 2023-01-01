@@ -269,13 +269,13 @@ template<typename T, size_t N>
 Chunk<T>* CustomAllocator<T, N>::allocate_new_chunk(const size_t& items_number)
 {
     //Chunk<T>* chunk_ptr = reinterpret_cast<Chunk<T>*>(std::malloc(sizeof(Chunk<T>)));
-    Chunk<T>* chunk_ptr = new Chunk<T>;
+    Chunk<T>* chunk_ptr = reinterpret_cast<Chunk<T>*>(new Chunk<T>);
     if (!chunk_ptr) {
         return nullptr;
     }
     
     if ( nullptr == chunk_ptr->allocate_space(items_number)) {
-        std::free(chunk_ptr);
+        std::free( reinterpret_cast<void*>(chunk_ptr) );
         return nullptr;
     }
 
