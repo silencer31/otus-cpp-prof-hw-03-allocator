@@ -21,7 +21,7 @@ long long calculate_factorial(int n)
 }
 
 // Тетирование своего аллокатора и std::map
-void test_std_map() {
+void test_std_map_with_custom_allocator() {
     using TestMap = std::map<int, int, std::less<int>, AllocatorPair>;
 
     auto test_map = TestMap{};
@@ -38,17 +38,31 @@ void test_std_map() {
 }
 
 // Тестирование своего аллокатора и своего контейнера
-void test_custom_container() {
+void test_custom_container_with_custom_allocator() {
     using TestList = OneWayList<int, AllocatorInt>;
 
-    TestList owl_cont;
+    TestList owl_cont_custom_alloc;
     
     for (int i = 0; i < 10; ++i) {
-        owl_cont.push_back(i);
+        owl_cont_custom_alloc.push_back(i);
     }
     
     std::cout << std::endl;
-    std::cout << owl_cont << std::endl;
+    std::cout << owl_cont_custom_alloc << std::endl;
+    std::cout << std::endl;
+
+}
+
+// Тестирование std аллокатора и своего контейнера.
+void test_custom_container_with_std_allocator() {
+    OneWayList<int> owl_cont_std_alloc;
+
+    for (int i = 0; i < 10; ++i) {
+        owl_cont_std_alloc.push_back(i);
+    }
+
+    std::cout << std::endl;
+    std::cout << owl_cont_std_alloc << std::endl;
     std::cout << std::endl;
 }
 
